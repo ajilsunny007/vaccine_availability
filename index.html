@@ -12,18 +12,18 @@
 <body>
     <div class="m-3">
     <h1>Vaccine Available</h1>
-    <div class="col-md-12 mt-2 row">
-        <div class="col-md-3">
+    <div class="col-md-12 col-sm-12 mt-2 row">
+        <div class="col-md-3 col-sm-12">
             <select id="state" class="form-control">
                 <option value="">Select State</option>
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-12">
             <select id="district" class="form-control">
                 <option value="">Select District</option>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12">
             <select id="age" class="form-control">
                 <option value="">Select Age</option>
                 <option value="18">18+</option>
@@ -31,10 +31,10 @@
 
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12">
             <input type="date" class="form-control" id="date">
         </div>
-        <div class="col-md-1">
+        <div class="col-md-1 col-sm-6">
             <button class="btn btn-success form-control" id="search">Search</button>
             <button class="btn btn-primary form-control" id="restart" style="display: none;">Restart</button>
         </div>
@@ -153,9 +153,6 @@ $('#search').click(function (){
     
 })
 $('#restart').click(function (){
-    $('#district').val('')
-    $('#age').val('')
-    $('#date').val('')
     $('#restart').hide()
     $('#search').show()
 })
