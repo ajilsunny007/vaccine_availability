@@ -37,6 +37,7 @@
         <div class="col-md-2 col-sm-6">
             <button class="btn btn-success form-control" id="search">Search</button>
             <button class="btn btn-primary form-control" id="restart" style="display: none;">Restart</button>
+            <!-- <span id="time">01:00</span> Seconds</div> -->
         </div>
         <p class="err text-danger"></p>
     </div>
@@ -45,7 +46,6 @@
     </div>
 </div>
 <footer class="page-footer font-small blue">
-
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">Developed by:
       <a href=""> Ajil Sunny</a>
@@ -55,6 +55,30 @@
   </footer>
 </body>
 <script>
+var refreshIntervalId;
+// var timer;
+// function startTimer(duration,display) {
+//     var timer = duration, minutes, seconds;
+//     timer=setInterval(function () {
+//         minutes = parseInt(timer / 60, 10);
+//         seconds = parseInt(timer % 60, 10);
+
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+//         display.textContent = minutes + ":" + seconds;
+
+//         if (--timer < 0) {
+//             timer = duration;
+//         }
+//     }, 1000);
+    
+//     var fiveMinutes = 60 * 1,
+//     display = document.querySelector('#time');
+//     startTimer(fiveMinutes, display);
+// }
+
+
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -62,7 +86,7 @@ function httpGet(theUrl)
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
-function check_avilable(district,age,dates)
+function check_available(district,age,dates)
 {
     var datearray = dates.split("-");
     var newdate = datearray[2] + '-' + datearray[1] + '-' + datearray[0];
@@ -72,7 +96,7 @@ function check_avilable(district,age,dates)
     var val=httpGet('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id='+district+'&date='+newdate);
     var values=JSON.parse(val)
     var centers=values.centers
-    console.log(centers)
+    // console.log(centers)
     var html='';
     for(var i=0;i<centers.length;i++)
     {
@@ -140,9 +164,9 @@ $('#search').click(function (){
     {
         $('#search').hide()
         $('#restart').show()
-        check_avilable(district,age,date)
-        setInterval(function(){
-            check_avilable(district,age,date)
+        check_available(district,age,date)
+        refreshIntervalId=setInterval(function(){
+            check_available(district,age,date)
         },60000)
     }
     else
@@ -155,6 +179,7 @@ $('#search').click(function (){
 $('#restart').click(function (){
     $('#restart').hide()
     $('#search').show()
+    clearInterval(refreshIntervalId);
 })
     </script>
 </html>
